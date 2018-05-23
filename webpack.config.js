@@ -1,6 +1,7 @@
 const path = require('path')
 const UglifyPlugin = require('uglifyjs-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -20,14 +21,11 @@ module.exports = {
         use: 'babel-loader'
       },
       {
-        test: /\.css/,
-        include: [
-          path.resolve(__dirname, 'src'),
-        ],
-        use: [
-          'style-loader',
-          'css-loader'
-        ]
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: 'css-loader'
+        })
       }
     ]
   },
@@ -49,5 +47,7 @@ module.exports = {
       filename: 'index.html',
       template: 'assets/index.html'
     }),
+    // 分离css
+    new ExtractTextPlugin('index.css')
   ]
 }

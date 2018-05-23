@@ -119,4 +119,30 @@ plugins: [
 	]
 }
 ```
+经过以上处理后，css会转变为JS，和index.js一起打包。
+
+单独把 css 文件分离出来：
+`extract-text-webpack-plugin`（目前需要安装"4.0.0-beta.0"版本）,  修改上述配置：
+
+``` js
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
+module = {
+	rules: [
+		{
+			test: /\.css$/,
+			use: ExtractTextPlugin.extract({
+				fallback: 'style-loader',
+				use: 'css-loader'
+			})
+		}
+	]
+}
+
+plugins: [
+	<!--分离css-->
+      new ExtractTextPlugin('index.css')
+]
+```
+
 
