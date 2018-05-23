@@ -22,10 +22,30 @@ module.exports = {
       },
       {
         test: /\.css$/,
+        // 因为这个插件需要干涉模块转换的内容，所以需要使用它对应的 loader
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: 'css-loader'
         })
+      },
+      {
+        test: /\.less$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            'css-loader',
+            'less-loader'
+          ]
+        })
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {}
+          }
+        ]
       }
     ]
   },

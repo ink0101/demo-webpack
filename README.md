@@ -145,4 +145,52 @@ plugins: [
 ]
 ```
 
+### CSS 预处理器
+
+例如： Less
+
+``` js
+{
+	test: /\.less$/,
+		use: ExtractTextPlugin.extract({
+		fallback: 'style-loader',
+		use: [
+			'css-loader',
+			'less-loader'
+		]
+	})
+}
+```
+
+### 处理图片文件 file-loader
+
+作用：直接输出文件，把构建后的文件路径返回
+
+``` js
+{
+	test: /\.(png|jpg|gif)$/,
+	use: [
+		{
+			loader: 'file-loader',
+			options: {}
+		}
+	]
+}
+```
+
+### 启动静态服务 webpack-dev-server
+
+在package.json中添加命令：
+
+``` json
+"scripts": {
+	"build": "webpack --mode production",
+	"start": "webpack-dev-server --mode development"
+}
+```
+默认访问地址： http://localhost:8080/
+
+
+
+
 
