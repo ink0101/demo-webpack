@@ -190,7 +190,51 @@ plugins: [
 ```
 默认访问地址： http://localhost:8080/
 
+## 如何解析代码模块路径
+webpack构建时，会解析依赖后，再去加载依赖的模块文件。
 
+> 在 JavaScript 中尽量使用 ECMAScript 2015 Modules 语法来引用依赖。
 
+`enhanced-resolve`:  处理依赖模块路径的解析。
+> 这个模块可以说是 Node.js 那一套模块路径解析的增强版本，有很多可以自定义的解析配置。
+> 
+> 参考：[深入Node.js的模块机制](http://www.infoq.com/cn/articles/nodejs-module-mechanism)
 
+###  模块解析规则
 
+![解析相对路径过程](./assets/module_load.svg)
+
+* 解析相对路径
+	* 查找相对当前模块的路径下是否有对应的文件或文件夹
+	* 文件 -- 直接加载
+	* 文件夹 -- 继续查找文件夹下的package.json文件
+	* 有package.json且文件中有main字段（main字段是可配置的，并不总是main字段），则按照main字段的文件名查找文件
+	* 没有package.json 或者 没有main 字段，则查找index.js
+	 
+* 解析模块名
+	
+	查找当前文件目录下，父级目录及以上目录下的 `node_modules` 文件夹,  看是否有对应的模块。
+	
+* 解析绝对路径 （不建议）
+	
+	直接查找对应路径的文件
+
+webpack 中和模块路径解析相关的配置都在resolve字段下：
+
+``` js
+module.exports = {
+	resolve: {
+		// ...
+	}
+}
+```
+
+### 常用配置
+
+* resolve
+	* alias：配置模块别名
+	* extensions：补全后缀名
+	* modules：解析模块时应该搜索哪些目录
+	* mainFields：确定package.json检查哪些字段（如 main 字段）
+	* mainFiles： 解析目录时使用的文件名
+	* resolveLoader: 配置
