@@ -237,4 +237,41 @@ module.exports = {
 	* modules：解析模块时应该搜索哪些目录
 	* mainFields：确定package.json检查哪些字段（如 main 字段）
 	* mainFiles： 解析目录时使用的文件名
-	* resolveLoader: 配置
+	* resolveLoader: 配置解析loader时的resolve配置
+
+## 配置 Loader
+
+### Loader 匹配规则
+
+关键点：
+
+* 匹配条件
+* 匹配规则后的应用
+
+``` js
+module.exports = {
+	// ...
+	module: {
+		rules: [ 
+			{
+				test: /\.jsx?/, // 条件
+				include: [ 
+					path.resolve(__dirname, 'src'),
+				], // 条件
+				use: 'babel-loader', // 规则应用结果
+			}, // 一个 object 即一条规则
+			
+			// ...
+		],
+	},
+}
+```
+上述代码中的 `test` 和 `include` 都用于匹配 `resource `路径，是 `resource.test` 和 `resource.include` 的简写。
+
+* resource: 请求的文件的绝对位置
+* issuer：请求resource的源文件的绝对路径
+
+### 规则条件配置
+
+* webpack 提供的配置形式：
+	* `{ test: ...}`
