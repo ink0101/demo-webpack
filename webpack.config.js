@@ -1,5 +1,6 @@
 const path = require('path')
 const UglifyPlugin = require('uglifyjs-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
   entry: './src/index.js',
@@ -33,5 +34,10 @@ module.exports = {
   plugins: [
     // 压缩js代码
     new UglifyPlugin(),
+    // 关联 HTML
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'assets/index.html'
+    }),
   ]
 }

@@ -1,8 +1,9 @@
-## webpack 笔记
 
-### 基本配置
+[TOC]
 
-#### 入口文件 entry
+## 基本配置
+
+### 入口文件 entry
 
 * 单入口
 
@@ -20,7 +21,7 @@
 	}
 	```
 
-#### 处理多种文件格式 loader
+### 处理多种文件格式 loader
 	最终把不同格式文件都解析成js文件，以便打包后在浏览器中运行。
 
 ``` json
@@ -38,7 +39,7 @@ module: {
 
 ```
 
-####  插件 plugin 
+### 插件 plugin 
 
 例如： 压缩js代码
 
@@ -52,7 +53,7 @@ module.exports = {
 }
 ```
 
-#### 输出 output
+### 输出 output
 
 * 常规
 	
@@ -87,4 +88,8 @@ module.exports = {
 		path: __dirname + '/dist/[hash]',
 	}
 	```
-	
+
+## 搭建基本开发环境
+
+### 关联 HTML - html-webpack-plugin
+
