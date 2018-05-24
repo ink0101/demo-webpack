@@ -274,4 +274,42 @@ module.exports = {
 ### 规则条件配置
 
 * webpack 提供的配置形式：
-	* `{ test: ...}`
+	* `{ test: ... }` 匹配特定条件
+	* `{ include: ... }` 匹配特定路径
+	* `{ exclude: ... }` 排除特定路径
+	* `{ and: [...] }` 必须匹配数组中所有条件
+	* `{ or: [...] }`  匹配数组中任意一个条件
+	* `{ not: [...] }`  排除匹配数组中所有条件
+* 所谓条件的值可以是：
+	* 字符串：必须以提供的字符串开始，所以是字符串的话，这里我们需要提供绝对路径
+	* 正则表达式：调用正则的 test 方法来判断匹配
+	* 函数：(path) => boolean，返回 true 表示匹配
+	* 数组：至少包含一个条件的数组
+	* 对象：匹配所有属性值的条件...
+
+### module type 模块类型
+
+> 不同的模块类型类似于配置了不同的loader，webpack会有针对性的进行处理：
+
+模块类型：
+
+*  javascript/auto
+*  javascript/esm
+*  javascript/dynamic
+*  javascript/json
+*  webassembly/experimental
+
+使用 type 字段来指定模块类型:
+
+``` js
+{
+	test: /\.js/,
+	include: [
+		path.resolve(__dirname, 'src'),
+	],
+	type: 'javascript/esm', // 这里指定模块类型
+},
+```
+
+
+
